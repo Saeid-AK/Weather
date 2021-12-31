@@ -18,7 +18,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-72 sm:w-96 m-auto">
+    <div className="flex justify-center w-72 sm:w-96 m-auto">
       <input
         type="search"
         required

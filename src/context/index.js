@@ -51,6 +51,7 @@ const MyProvider = props => {
             description: data.weather[0].description,
             cityName: data.name,
             country: data.sys.country,
+            date: data.timezone,
             icon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
             feels: Math.round(data.main.feels_like),
             curTemp: Math.round(data.main.temp),

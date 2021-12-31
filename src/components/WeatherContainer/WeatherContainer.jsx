@@ -13,12 +13,13 @@ const WeatherContainer = () => {
   const loading = context.state.loading;
 
   return (
-    <div className="h-screen md:h-1/2 pt-10 sm:p-0">
+    <div className="h-screen md:h-1/2 sm:p-110">
+      <div className='text-center text-4xl sm:text-6xl font-bold text-gray-50 m-2 sm:mb-12'>Weather</div>
       <SearchBar />
       {loading ? (
         <Loading>Getting weather data...</Loading>
       ) : (
-        <div className="flex-col h-5/6 sm:h-full">
+        <div className="flex-col h-5/6">
           {!context.state.weather ? (
             <Loading>No City Found(search one for result)</Loading>
           ) : (
