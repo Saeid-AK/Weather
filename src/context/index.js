@@ -8,41 +8,9 @@ const WEATHER_API_KEY = 'e603bcdd5b1da3bc3e1696829b376047';
 const MyProvider = props => {
   const [state, setState] = useState({
     loading: true,
-    date: {},
+    err: '',
     weather: {},
   });
-
-  let date;
-  let time;
-  const getDate = () => {
-    let daysList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    let monthsList = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Aug',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const today = new Date();
-    let month = monthsList[today.getMonth()];
-    let year = today.getFullYear();
-    let dayDate = today.getDay();
-    let day = daysList[today.getDay()];
-    let hour = today.getHours();
-    let minutes = today.getMinutes();
-
-    time = { hour: hour, minutes: minutes };
-    date = { month: month, year: year, day: day, dayDate: dayDate };
-  };
 
   const getLoc = position => {
     const lat = position.coords.latitude;
@@ -65,25 +33,29 @@ const MyProvider = props => {
 
   const getWeather = curCity => {
     fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${curCity}&exclude=hourly,daily&appid=${WEATHER_API_KEY}`
+      `http://api.openweathermap.org/data/2.5/weather?q=${curCity}&units=metric&exclude=hourly,daily&appid=${WEATHER_API_KEY}`
     )
       .then(response => response.json())
       .then(data =>
         setState({
           ...state,
+          loading: false,
           loc: curCity,
-          date: { date, time: time },
           weather: {
             data,
             main: data.weather[0].main,
+            description: data.weather[0].description,
             cityName: data.name,
             country: data.sys.country,
-            feels: Math.round(data.main.feels_like - 273.15),
-            curTemp: Math.round(data.main.temp - 273.15),
-            minTemp: Math.round(data.main.temp_min - 273.15),
-            maxTemp: Math.round(data.main.temp_max - 273.15),
+            icon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
+            feels: Math.round(data.main.feels_like),
+            curTemp: Math.round(data.main.temp),
+            minTemp: Math.round(data.main.temp_min),
+            maxTemp: Math.round(data.main.temp_max),
             humidity: data.main.humidity,
             wind: { speed: data.wind.speed, deg: data.wind.deg },
+            clouds: data.clouds.all,
+            pressure: data.main.pressure,
           },
         })
       );
@@ -92,7 +64,6 @@ const MyProvider = props => {
   // K − 273.15 = °C
 
   useEffect(() => {
-    getDate();
     getCoords();
   }, []);
 
