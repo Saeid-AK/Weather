@@ -8,8 +8,8 @@ const WEATHER_API_KEY = 'e603bcdd5b1da3bc3e1696829b376047';
 const MyProvider = props => {
   const [state, setState] = useState({
     loading: true,
+    searchQurey: '',
     err: '',
-    weather: {},
   });
 
   const getLoc = position => {
@@ -27,20 +27,24 @@ const MyProvider = props => {
 
   const getCoords = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getLoc, console.error);
+      navigator.geolocation.getCurrentPosition(getLoc, setLoadingFalse);
     }
   };
 
-  const getWeather = curCity => {
+  const setLoadingFalse = () => {
+    setState({ loading: false });
+  };
+
+  const getWeather = city => {
     fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${curCity}&units=metric&exclude=hourly,daily&appid=${WEATHER_API_KEY}`
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&exclude=hourly,daily&appid=${WEATHER_API_KEY}`
     )
       .then(response => response.json())
       .then(data =>
         setState({
           ...state,
           loading: false,
-          loc: curCity,
+          loc: city,
           weather: {
             data,
             main: data.weather[0].main,
@@ -63,6 +67,10 @@ const MyProvider = props => {
 
   // K − 273.15 = °C
 
+  const searchOnClick = city => {
+    getWeather(city);
+  };
+
   useEffect(() => {
     getCoords();
   }, []);
@@ -71,6 +79,8 @@ const MyProvider = props => {
     <MyContext.Provider
       value={{
         state: state,
+        setState: setState,
+        searchOnClick: searchOnClick,
         getWeather: getWeather,
       }}
     >

@@ -50,7 +50,7 @@ const CityData = () => {
   let weather = state.weather;
 
   return (
-    <div className="flex justify-between text-sm md:text-xl w-72 sm:w-96 md:w-full border-b border-black">
+    <div className="flex justify-between md:text-xl w-72 sm:w-96 py-1 md:w-full border-b border-black">
       <div>
         {weather.cityName}, {weather.country}
       </div>

@@ -16,29 +16,29 @@ const WeatherData = () => {
   };
 
   return (
-    <div className="flex-col p-1 sm:p-5">
+    <div className="flex-col mt-2 sm:p-5">
       <div className="text-2xl">{camalize(weather.description)}</div>
       <div className="mt-2">
         <div className="grid grid-cols-2">
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             <span>Real feel: </span>
-            <span>{weather.feels} °</span>
+            <span>{weather.feels}°</span>
           </div>
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             <span>Humidity: </span>
-            <span>{weather.humidity} %</span>
+            <span>{weather.humidity}%</span>
           </div>
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             <span>Wind: </span>
-            <span>{weather.wind.speed} KpH</span>
+            <span>{weather.wind.speed}KpH</span>
           </div>
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             <span>Pressure: </span>
-            <span>{weather.pressure} mb</span>
+            <span>{weather.pressure}mb</span>
           </div>
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             <span>Clouds: </span>
-            <span>{weather.clouds} %</span>
+            <span>{weather.clouds}%</span>
           </div>
         </div>
       </div>

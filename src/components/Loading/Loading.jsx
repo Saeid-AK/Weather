@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Loading = () => {
+const Loading = props => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      Getting weather data...
+    <div className="flex justify-center items-center sm:text-xl h-5/6 md:h-full">
+      {props.children}
     </div>
   );
 };
